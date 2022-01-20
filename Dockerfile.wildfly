@@ -8,7 +8,6 @@ LABEL io.k8s.description="Platform for building and running Entando quickstart a
 ENV USERID_TO_USE=185 \
     STI_SCRIPTS_PATH="/usr/libexec/s2i" \
     ENTANDO_COMMON_PATH="/entando-common" \
-    HOME=opt/app-root/src \
     PORTDB_NONXA="true" \
     PORTDB_JTA="false" \
     PORTDB_URL="jdbc:derby:/entando-data/databases/entandoPort;create=true" \
@@ -61,7 +60,7 @@ ENV USERID_TO_USE=185 \
     APPBUILDERBASEURL="/app-builder/"
 
 COPY --chown=185:0 ./common/entando-dependencies-bootstrap "${ENTANDO_COMMON_PATH}"
-COPY --chown=185:0 ./common/settings.xml $HOME/.m2/settings.xml
+COPY --chown=185:0 ./common/settings.xml /opt/app-root/src/.m2/settings.xml
 COPY --chown=185:0 ./common/entando-common "${ENTANDO_COMMON_PATH}"
 COPY --chown=185:0 ./common/jetty-runner /jetty-runner
 COPY --chown=185:0 ./wildfly/contrib/wildfly-configuration/standalone.xml /wildfly/standalone/configuration/standalone.xml

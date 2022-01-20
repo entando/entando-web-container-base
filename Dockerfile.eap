@@ -66,7 +66,7 @@ ENV USERID_TO_USE=185 \
     APPBUILDERBASEURL="/app-builder/"
 
 COPY --chown=185:0 ./common/entando-dependencies-bootstrap "${ENTANDO_COMMON_PATH}"
-COPY --chown=185:0 ./common/settings.xml $HOME/.m2/settings.xml
+COPY --chown=185:0 ./common/settings.xml /opt/app-root/src/.m2/settings.xml
 COPY --chown=185:0 ./common/entando-common "${ENTANDO_COMMON_PATH}"
 COPY --chown=185:0 ./common/jetty-runner /jetty-runner
 COPY --chown=185:0 ./eap/modules  /opt/eap/modules
