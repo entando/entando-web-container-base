@@ -8,10 +8,10 @@ You can build linux/amd64 images with the help of `buildx` plugin (embedded in D
 
 ````
 # Build
-docker buildx build --platform linux/amd64 . -t entando/entando-base-common:<version>
+docker buildx build --platform linux/amd64 . -t entando/entando-wildfly17-base:<version>
 
 # Build and push to local registry
-docker buildx build --platform linux/amd64 . -t entando/entando-base-common:<version> --output type=docker
+docker buildx build --platform linux/amd64 . -t entando/entando-wildfly17-base:<version> --output type=docker
 
 ````
 

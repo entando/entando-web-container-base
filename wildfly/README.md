@@ -1,3 +1,4 @@
+```
 //Environment Variable names for images
 :PORTDB_URL: the full JDBC connection string used to connect to the Entando PORT database
 :PORTDB_DATABASE: the name of the Entando PORT database that is created and hosted in the image
@@ -86,6 +87,7 @@
 
 :FSI_CCD_DEMO_DESCRIPTION: The Entando team, Red Hat and our business partners have collaborated to bring you a demo that illustrates how Entando can be used as the user experience layer for your Red Hat Process Automation Manager processes. The process in question allows customers to initiate a dispute case against a specific transaction. This demo provides two Entando apps - a customer facing app and a back-office app. These apps connect to a shared KIE Server instance.
 :EAP_IMAGE_DISCLAIMER: Please note that this configuration uses a child image of the official JBoss EAP commercial Docker Image. This would mean that  in order to deploy this in a production environment, you would need to purchase the necessary subscription from Red Hat first.
+```
 
 # Entando Wildfly 12 Base Image
 
