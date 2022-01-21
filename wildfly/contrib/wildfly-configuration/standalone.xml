@@ -215,7 +215,7 @@
                         <xa-datasource-class>org.apache.derby.jdbc.EmbeddedXADataSource40</xa-datasource-class>
                     </driver>
                     <driver name="oracle" module="com.oracle">
-                        <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+                        <driver-class>oracle.jdbc.OracleDriver</driver-class>
                     </driver>
                     <driver name="postgresql" module="org.postgresql">
                         <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>

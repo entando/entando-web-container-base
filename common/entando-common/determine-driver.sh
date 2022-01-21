@@ -12,6 +12,6 @@ case "$1" in
         echo "com.mysql.jdbc.Driver"
     ;;
     oracle )
-        echo "oracle.jdbc.driver.OracleDriver"
+        echo "oracle.jdbc.OracleDriver"
     ;;
 esac
