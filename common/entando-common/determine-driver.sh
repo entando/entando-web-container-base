@@ -9,7 +9,7 @@ case "$1" in
         echo "org.postgresql.Driver"
     ;;
     mysql )
-        echo "com.mysql.jdbc.Driver"
+        echo "com.mysql.cj.jdbc.Driver"
     ;;
     oracle )
         echo "oracle.jdbc.OracleDriver"
