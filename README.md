@@ -68,4 +68,4 @@ docker buildx build --platform linux/amd64 . -t entando/entando-wildfly17-base:<
 ** **ADMIN_PASSWORD** - {ADMIN_PASSWORD}
 ````
 
-hello3
+hello4
