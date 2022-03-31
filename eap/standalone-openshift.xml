@@ -130,6 +130,25 @@
                     </meta-data>
                 </json-formatter>
             </formatter>
+            <logging-profiles>
+                <logging-profile name="entando">
+                    <console-handler name="CONSOLE">
+                        <level name="INFO"/>
+                        <formatter>
+                            <named-formatter name="SIMPLE"/>
+                        </formatter>
+                    </console-handler>
+                    <root-logger>
+                        <level name="INFO"/>
+                        <handlers>
+                            <handler name="CONSOLE"/>
+                        </handlers>
+                    </root-logger>
+                    <formatter name="SIMPLE">
+                        <pattern-formatter pattern="%s%e%n"/>
+                    </formatter>
+                </logging-profile>
+            </logging-profiles>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:batch-jberet:2.0">
             <default-job-repository name="in-memory"/>
