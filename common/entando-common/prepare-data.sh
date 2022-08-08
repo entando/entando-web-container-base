@@ -51,4 +51,3 @@ elif [ !  -d /entando-data/resources ]; then
   cp /entando-data-templates/build_id /entando-data/build_id -f
   extract_resources
 fi
-chmod -Rf ug+rw /entando-data/
