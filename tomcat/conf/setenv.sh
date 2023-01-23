@@ -2,11 +2,17 @@
 #export CATALINA_OPTS="$CATALINA_OPTS -javaagent:/opt/newrelic/newrelic.jar"
 #export CATALINA_OPTS="$CATALINA_OPTS -Dcom.sun.management.jmxremote.rmi.port=9099 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=9099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=localhost"
 export CATALINA_OPTS="$CATALINA_OPTS -server"
-export CATALINA_OPTS="$CATALINA_OPTS ${XMS:=-Xms2g}"
-export CATALINA_OPTS="$CATALINA_OPTS ${XMX:=-Xmx2g}"
+#talk with PJ
+#export CATALINA_OPTS="$CATALINA_OPTS ${XMS:=-Xms2g}"
+#export CATALINA_OPTS="$CATALINA_OPTS ${XMX:=-Xmx2g}"
+export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxRAMPercentage=90.0"
+export CATALINA_OPTS="$CATALINA_OPTS -XshowSettings:vm"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:+UseG1GC"
 export CATALINA_OPTS="$CATALINA_OPTS ${INITIAL_HEAP_SIZE:=-XX:InitialHeapSize=2g}"
+
+#inutile in kube
 export CATALINA_OPTS="$CATALINA_OPTS ${MAX_HEAP_SIZE:=-XX:MaxHeapSize=2g}"
+
 export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxGCPauseMillis=500"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:+DisableExplicitGC"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:+UseStringDeduplication"
@@ -31,11 +37,11 @@ export CATALINA_OPTS="$CATALINA_OPTS -Dportdb.username=${PORTDB_USERNAME}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dservdb.username=${SERVDB_USERNAME}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dportdb.password=${PORTDB_PASSWORD}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dservdb.password=${SERVDB_PASSWORD}"
-export CATALINA_OPTS="$CATALINA_OPTS -Dprofile.database.driverClassName=$($(dirname ${BASH_SOURCE[0]})/determine-driver.sh ${PORTDB_DRIVER})"
-export CATALINA_OPTS="$CATALINA_OPTS -Dportdb.driverClassName=$($(dirname ${BASH_SOURCE[0]})/determine-driver.sh ${PORTDB_DRIVER})"
-export CATALINA_OPTS="$CATALINA_OPTS -Dservdb.driverClassName=$($(dirname ${BASH_SOURCE[0]})/determine-driver.sh ${SERVDB_DRIVER})"
-export CATALINA_OPTS="$CATALINA_OPTS -DportDataSourceClassName=$($(dirname ${BASH_SOURCE[0]})/determine-driver.sh ${PORTDB_DRIVER})"
-export CATALINA_OPTS="$CATALINA_OPTS -DservDataSourceClassName=$($(dirname ${BASH_SOURCE[0]})/determine-driver.sh ${SERVDB_DRIVER})"
+export CATALINA_OPTS="$CATALINA_OPTS -Dprofile.database.driverClassName=$(${ENTANDO_COMMON_PATH}/determine-driver.sh ${PORTDB_DRIVER})"
+export CATALINA_OPTS="$CATALINA_OPTS -Dportdb.driverClassName=${PORTDATASOURCECLASSNAME}"
+export CATALINA_OPTS="$CATALINA_OPTS -Dservdb.driverClassName=${SERVDATASOURCECLASSNAME}"
+export CATALINA_OPTS="$CATALINA_OPTS -DportDataSourceClassName=${PORTDATASOURCECLASSNAME}"
+export CATALINA_OPTS="$CATALINA_OPTS -DservDataSourceClassName=${SERVDATASOURCECLASSNAME}"
 
 # Entando Options
 export CATALINA_OPTS="$CATALINA_OPTS -DappBuilderIntegration=${APPBUILDERINTEGRATIONENABLED}"
@@ -52,15 +58,13 @@ export CATALINA_OPTS="$CATALINA_OPTS -DlogName=/tmp/entando-logs/entando.log"
 # manage if it's different from `/`(i.e: /portale)
 
 if [[ "$ENTANDO_WEB_CONTEXT" = "/" ]] ; then
-  export CMS_RESOURCES_ROOT_URL="/cmsresources/"
   export CATALINA_OPTS="$CATALINA_OPTS -DresourceRootURL=/resources/"
-  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${CMS_RESOURCES_ROOT_URL}"
+  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${RESOURCEROOTURL}"
   export CATALINA_OPTS="$CATALINA_OPTS -DprotectedResourceRootURL=/protected/"
   export CATALINA_OPTS="$CATALINA_OPTS -DlogFileRotatePattern=/usr/local/tomcat/logs/entando_logs/root-%i.log.gz"
 else
-  export CMS_RESOURCES_ROOT_URL="${ENTANDO_WEB_CONTEXT}/cmsresources/"
   export CATALINA_OPTS="$CATALINA_OPTS -DresourceRootURL=${ENTANDO_WEB_CONTEXT}/resources/"
-  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${CMS_RESOURCES_ROOT_URL}"
+  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${RESOURCEROOTURL}"
   export CATALINA_OPTS="$CATALINA_OPTS -DprotectedResourceRootURL=${ENTANDO_WEB_CONTEXT}/protected/"
   export CATALINA_OPTS="$CATALINA_OPTS -DlogFileRotatePattern=/usr/local/tomcat/logs/entando_logs${ENTANDO_WEB_CONTEXT}-%i.log.gz"
 fi
@@ -68,5 +72,5 @@ fi
 export CATALINA_OPTS="$CATALINA_OPTS -DresourceDiskRootFolder=/entando-data/static/"
 export CATALINA_OPTS="$CATALINA_OPTS -DprotectedResourceDiskRootFolder=/entando-data/protected/"
 export CATALINA_OPTS="$CATALINA_OPTS -DindexDiskRootFolder=/entando-data/entando-indices"
-export CATALINA_OPTS="$CATALINA_OPTS -Dentando.version=${entando.version}"
+#export CATALINA_OPTS="$CATALINA_OPTS -Dentando.version=${entando.version}"
 export CATALINA_OPTS="$CATALINA_OPTS -Ddb.environment=production"

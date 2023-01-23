@@ -27,7 +27,34 @@
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
     <Manager pathname="" />
-    -->
     <Manager className="org.redisson.tomcat.RedissonSessionManager"
              configPath="${catalina.base}/redisson.conf" readMode="MEMORY" updateMode="DEFAULT"/>
+    -->
+
+    <Resource name="jdbc/portDataSource" 
+          global="jdbc/portDataSource" 
+          auth="Container"
+          type="javax.sql.DataSource"
+          driverClassName="${portDataSourceClassName}"
+          url="${portdb.url}"
+          username="${portdb.username}" 
+          password="${portdb.password}"
+          maxTotal="100"
+          maxIdle="20"
+          minIdle="5"
+          maxWaitMillis="10000"/>
+
+    <Resource name="jdbc/servDataSource" 
+          global="jdbc/servDataSource" 
+          auth="Container"
+          type="javax.sql.DataSource"
+          driverClassName="${servDataSourceClassName}"
+          url="${servdb.url}"
+          username="${servdb.username}" 
+          password="${servdb.password}"
+          maxTotal="100"
+          maxIdle="20"
+          minIdle="5"
+          maxWaitMillis="10000"/>
+
 </Context>

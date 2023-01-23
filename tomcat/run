@@ -1,25 +1,34 @@
 #!/bin/bash
 
 
+source "${ENTANDO_COMMON_PATH}/translate-jboss-variables.sh"
+"${ENTANDO_COMMON_PATH}/prepare-data.sh"
 
 
+#set var to use custom context
 if [ "$ENTANDO_WEB_CONTEXT" == "/" ]; then
   MYCONTEXT="ROOT"
+  MYPATH=""
 else
   MYCONTEXT="$ENTANDO_WEB_CONTEXT"
+  MYPATH="$ENTANDO_WEB_CONTEXT"
 fi
 
+#rename war to change context
 mv /usr/local/tomcat/webapps/entando-de-app.war "/usr/local/tomcat/webapps/$MYCONTEXT.war"
 
-#ARG context_path
-#ENV ENTANDO_WEB_CONTEXT=$context_path
-sed -i "s|CONTEXT_PATH|$MYCONTEXT|g" /usr/local/tomcat/conf/server.xml
-sed -i "s|CONTEXT_PATH|$MYCONTEXT|g" /opt/entando-scripts/bin/entando-data.sh \
 
+#replace for custom context
+sed -i "s|CONTEXT_PATH|$MYPATH|g" /usr/local/tomcat/conf/server.xml
+sed -i "s|CONTEXT_PATH|$MYCONTEXT|g" /usr/local/tomcat/bin/entando-data.sh
 
-mkdir -p /entando-data/resources
-mkdir -p /entando-data/protected
-bash /usr/local/tomcat/bin/entando-data.sh
-#catalina.sh run
+#background script to copy resources
+#mkdir -p /entando-data/resources
+#mkdir -p /entando-data/protected
+#sh /usr/local/tomcat/bin/entando-data.sh &
 
-exec "/usr/local/tomcat/bin/catalina.sh run"
+export PORTDB_JNDI="java:comp/env/jdbc/portDataSource"
+export SERVDB_JNDI="java:comp/env/jdbc/servDataSource"
+
+#start tomcat
+exec /usr/local/tomcat/bin/catalina.sh run
