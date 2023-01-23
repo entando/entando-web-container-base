@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+
+
+if [ "$ENTANDO_WEB_CONTEXT" == "/" ]; then
+  MYCONTEXT="ROOT"
+else
+  MYCONTEXT="$ENTANDO_WEB_CONTEXT"
+fi
+
+mv /usr/local/tomcat/webapps/entando-de-app.war "/usr/local/tomcat/webapps/$MYCONTEXT.war"
+
+#ARG context_path
+#ENV ENTANDO_WEB_CONTEXT=$context_path
+sed -i "s|CONTEXT_PATH|$MYCONTEXT|g" /usr/local/tomcat/conf/server.xml
+sed -i "s|CONTEXT_PATH|$MYCONTEXT|g" /opt/entando-scripts/bin/entando-data.sh \
+
+
+mkdir -p /entando-data/resources
+mkdir -p /entando-data/protected
+bash /usr/local/tomcat/bin/entando-data.sh
+#catalina.sh run
+
+exec "/usr/local/tomcat/bin/catalina.sh run"
