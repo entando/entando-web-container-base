@@ -30,6 +30,11 @@
     <Manager className="org.redisson.tomcat.RedissonSessionManager"
              configPath="${catalina.base}/redisson.conf" readMode="MEMORY" updateMode="DEFAULT"/>
     -->
+    <JarScanner>
+        <JarScanFilter 
+          pluggabilitySkip="${tomcat.util.scan.StandardJarScanFilter.jarsToSkip},derbyLocale_*.jar"
+          tldSkip="${tomcat.util.scan.StandardJarScanFilter.jarsToSkip},derbyLocale_*.jar"/>
+    </JarScanner>
 
     <Resource name="jdbc/portDataSource" 
           global="jdbc/portDataSource" 
