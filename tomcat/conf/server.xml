@@ -166,7 +166,7 @@
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->
 
-        <Context docBase="/entando-data/resources" path="CONTEXT_PATH/resources" />
+        <Context docBase="/entando-data/resources" path="CONTEXT_PATH/cmsresources" />
 
         <!-- Access log processes all example.
              Documentation at: /docs/config/valve.html

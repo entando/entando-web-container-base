@@ -37,7 +37,7 @@ export CATALINA_OPTS="$CATALINA_OPTS -Dportdb.username=${PORTDB_USERNAME}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dservdb.username=${SERVDB_USERNAME}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dportdb.password=${PORTDB_PASSWORD}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dservdb.password=${SERVDB_PASSWORD}"
-export CATALINA_OPTS="$CATALINA_OPTS -Dprofile.database.driverClassName=$(${ENTANDO_COMMON_PATH}/determine-driver.sh ${PORTDB_DRIVER})"
+export CATALINA_OPTS="$CATALINA_OPTS -Dprofile.database.driverClassName=${PORTDATASOURCECLASSNAME}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dportdb.driverClassName=${PORTDATASOURCECLASSNAME}"
 export CATALINA_OPTS="$CATALINA_OPTS -Dservdb.driverClassName=${SERVDATASOURCECLASSNAME}"
 export CATALINA_OPTS="$CATALINA_OPTS -DportDataSourceClassName=${PORTDATASOURCECLASSNAME}"
@@ -49,22 +49,23 @@ export CATALINA_OPTS="$CATALINA_OPTS -DredisActive=${REDIS_ACTIVE}"
 export CATALINA_OPTS="$CATALINA_OPTS -DredisAddress=${REDIS_ADDRESS}"
 export CATALINA_OPTS="$CATALINA_OPTS -DredisAddresses=${REDIS_ADDRESSES}"
 export CATALINA_OPTS="$CATALINA_OPTS -DSolarAddress=${SOLR_ADDRESS}"
-export CATALINA_OPTS="$CATALINA_OPTS -DforceHttps=${FORCE_HTTPS}"
+#export CATALINA_OPTS="$CATALINA_OPTS -DforceHttps=${FORCE_HTTPS}"
 
 export CATALINA_OPTS="$CATALINA_OPTS -DlogFilePrefix=/tmp/entando-logs"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogName=/tmp/entando-logs/entando.log"
 
 # ENTANDO_WEB_CONTEXT 
 # manage if it's different from `/`(i.e: /portale)
+export CATALINA_OPTS="$CATALINA_OPTS -DresourceRootURL=${RESOURCEROOTURL}"
 
 if [[ "$ENTANDO_WEB_CONTEXT" = "/" ]] ; then
-  export CATALINA_OPTS="$CATALINA_OPTS -DresourceRootURL=/resources/"
-  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${RESOURCEROOTURL}"
+#  export CATALINA_OPTS="$CATALINA_OPTS -DresourceRootURL=/resources/"
+#  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${RESOURCEROOTURL}"
   export CATALINA_OPTS="$CATALINA_OPTS -DprotectedResourceRootURL=/protected/"
   export CATALINA_OPTS="$CATALINA_OPTS -DlogFileRotatePattern=/usr/local/tomcat/logs/entando_logs/root-%i.log.gz"
 else
-  export CATALINA_OPTS="$CATALINA_OPTS -DresourceRootURL=${ENTANDO_WEB_CONTEXT}/resources/"
-  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${RESOURCEROOTURL}"
+#  export CATALINA_OPTS="$CATALINA_OPTS -DresourceRootURL=${ENTANDO_WEB_CONTEXT}/resources/"
+#  export CATALINA_OPTS="$CATALINA_OPTS -DcmsResourceRootURL=${RESOURCEROOTURL}"
   export CATALINA_OPTS="$CATALINA_OPTS -DprotectedResourceRootURL=${ENTANDO_WEB_CONTEXT}/protected/"
   export CATALINA_OPTS="$CATALINA_OPTS -DlogFileRotatePattern=/usr/local/tomcat/logs/entando_logs${ENTANDO_WEB_CONTEXT}-%i.log.gz"
 fi
