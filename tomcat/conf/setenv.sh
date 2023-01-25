@@ -52,6 +52,8 @@ export CATALINA_OPTS="$CATALINA_OPTS -DservDataSourceClassName=${SERVDATASOURCEC
 ##################
 # Logs configs
 ##################
+export LOG_LEVEL=${LOG_LEVEL:-INFO}
+export ROOT_LOG_LEVEL=${ROOT_LOG_LEVEL:-WARN}
 export CATALINA_OPTS="$CATALINA_OPTS -DlogFilePrefix='${LOGFILEPREFIX}'"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogName='${LOGNAME}'"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogFileRotatePattern='${LOGFILEROTATEPATTERN}'"
