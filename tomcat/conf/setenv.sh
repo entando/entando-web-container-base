@@ -1,35 +1,32 @@
 #!/bin/bash
-#export CATALINA_OPTS="$CATALINA_OPTS -Dcom.sun.management.jmxremote.rmi.port=9099 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=9099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=localhost"
 export CATALINA_OPTS="$CATALINA_OPTS -server"
 
 ##################
 # JVM configs
 ##################
-#export CATALINA_OPTS="$CATALINA_OPTS ${XMS:=-Xms2g}"
-#export CATALINA_OPTS="$CATALINA_OPTS ${XMX:=-Xmx2g}"
-export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxRAMPercentage=90.0"
 export CATALINA_OPTS="$CATALINA_OPTS -XshowSettings:vm"
-export CATALINA_OPTS="$CATALINA_OPTS -XX:+UseG1GC"
-#export CATALINA_OPTS="$CATALINA_OPTS ${INITIAL_HEAP_SIZE:=-XX:InitialHeapSize=2g}"
-#export CATALINA_OPTS="$CATALINA_OPTS ${MAX_HEAP_SIZE:=-XX:MaxHeapSize=2g}"
-export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxGCPauseMillis=500"
-export CATALINA_OPTS="$CATALINA_OPTS -XX:+DisableExplicitGC"
+export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxRAMPercentage=${MAX_RAM_PERCENTAGE:-90.0}"
+export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxMetaspaceSize=${MAX_METASPACE:-512m}"
+
+GC_OPTS="${GC_OPTS:--XX:+UseG1GC -XX:MaxGCPauseMillis=500 -XX:+DisableExplicitGC}"
+export CATALINA_OPTS="$CATALINA_OPTS ${GC_OPTS}"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:+UseStringDeduplication"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:+ParallelRefProcEnabled"
-export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxMetaspaceSize=512m"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxTenuringThreshold=5"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:+AlwaysPreTouch"
-#export CATALINA_OPTS="$CATALINA_OPTS -XX:+UnlockExperimentalVMOptions"
-#export CATALINA_OPTS="$CATALINA_OPTS -XX:+UseZGC"
-#export CATALINA_OPTS="$CATALINA_OPTS -XX:+AggressiveOpts"
-#export CATALINA_OPTS="$CATALINA_OPTS -XX:ParallelGCThreads=0"
-#export CATALINA_OPTS="$CATALINA_OPTS -XX:ConcGCThreads=8"
-#export CATALINA_OPTS="$CATALINA_OPTS -XX:InitiatingHeapOccupancyPercent=70"
 
 ##################
 # Tomcat configs
 ##################
+export CATALINA_OPTS="$CATALINA_OPTS -Dfile.encoding=${FILE_ENCODING:-UTF8}"
 export CATALINA_OPTS="$CATALINA_OPTS -Duser.timezone=Europe/Rome"
+export CATALINA_OPTS="$CATALINA_OPTS -DtomcatMaxThreads=${TOMCAT_MAX_THREADS:-300}"
+export CATALINA_OPTS="$CATALINA_OPTS -DtomcatMaxHttpHeaderSize=${TOMCAT_MAX_HEADER_SIZE:-65536}"
+export CATALINA_OPTS="$CATALINA_OPTS -DtomcatConnectionTimeout=${TOMCAT_CONN_TIMEOUT:-5000}"
+if ${JMX_ENABLED:-false}; then
+  JMX_OPTS=${JMX_OPTS:--Dcom.sun.management.jmxremote.rmi.port=9099 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=9099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=localhost}    
+  export CATALINA_OPTS="$CATALINA_OPTS ${JMX_OPTS}"
+fi
 
 
 ##################
@@ -53,7 +50,9 @@ export CATALINA_OPTS="$CATALINA_OPTS -DservDataSourceClassName=${SERVDATASOURCEC
 # Logs configs
 ##################
 export LOG_LEVEL=${LOG_LEVEL:-INFO}
+echo "LOG_LEVEL: $LOG_LEVEL"
 export ROOT_LOG_LEVEL=${ROOT_LOG_LEVEL:-WARN}
+echo "ROOT_LOG_LEVEL: $ROOT_LOG_LEVEL"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogFilePrefix='${LOGFILEPREFIX}'"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogName='${LOGNAME}'"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogFileRotatePattern='${LOGFILEROTATEPATTERN}'"
@@ -76,8 +75,7 @@ if [[ "$ENTANDO_WEB_CONTEXT" = "/" ]] ; then
 else
   export CATALINA_OPTS="$CATALINA_OPTS -DprotectedResourceRootURL=${ENTANDO_WEB_CONTEXT}/protected/"
 fi
-export CATALINA_OPTS="$CATALINA_OPTS -DresourceDiskRootFolder=/entando-data/static/"
+export CATALINA_OPTS="$CATALINA_OPTS -DresourceDiskRootFolder=/entando-data/resources/"
 export CATALINA_OPTS="$CATALINA_OPTS -DprotectedResourceDiskRootFolder=/entando-data/protected/"
 export CATALINA_OPTS="$CATALINA_OPTS -DindexDiskRootFolder=/entando-data/entando-indices"
-#export CATALINA_OPTS="$CATALINA_OPTS -Dentando.version=${entando.version}"
 export CATALINA_OPTS="$CATALINA_OPTS -Ddb.environment=production"

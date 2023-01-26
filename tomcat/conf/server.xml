@@ -68,16 +68,16 @@
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
     <Connector port="8080" protocol="org.apache.coyote.http11.Http11Nio2Protocol"
-               maxThreads="300"
+               maxThreads="${tomcatMaxThreads}"
                maxKeepAliveRequests="1"
                acceptCount="250"
                minSpareThreads="50"
                socket.appReadBufSize="8192"
                socket.appWriteBufSize="8192"
-               maxHttpHeaderSize="65536"
+               maxHttpHeaderSize="${tomcatMaxHttpHeaderSize}"
                socket.bufferPool="1000"
                compression="off"
-               connectionTimeout="5000"
+               connectionTimeout="${tomcatConnectionTimeout}"
                enableLookups="false"
                redirectPort="8443" />
     <!-- A "Connector" using the shared thread pool-->
