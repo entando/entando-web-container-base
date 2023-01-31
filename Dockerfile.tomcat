@@ -54,7 +54,8 @@ RUN apt-get update && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
     useradd -s /sbin/nologin -U -u 185 tomcat && \
-    chown -R 185:0 /usr/local/tomcat 
+    chown -R 185:0 /usr/local/tomcat && \
+    chmod -R ug+w /usr/local/tomcat
 
 
 #######################################    
@@ -108,7 +109,7 @@ RUN mkdir -p /entando-data/databases  && chown -Rf $USERID_TO_USE:0 /entando-dat
 
 EXPOSE 8080
 
-USER 185
+USER $USERID_TO_USE
 
 CMD "${STI_SCRIPTS_PATH}/run"
 
