@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+source "${ENTANDO_COMMON_PATH}/translate-jboss-variables.sh"
+"${ENTANDO_COMMON_PATH}/prepare-data.sh"
+
+
+#set var to use custom context
+if [ "$ENTANDO_WEB_CONTEXT" == "/" ]; then
+  MYCONTEXT="ROOT"
+  MYPATH=""
+else
+  MYCONTEXT="$ENTANDO_WEB_CONTEXT"
+  MYPATH="$ENTANDO_WEB_CONTEXT"
+fi
+
+#rename war to change context
+mv /usr/local/tomcat/webapps/entando-de-app.war "/usr/local/tomcat/webapps/$MYCONTEXT.war"
+
+
+#replace for custom context
+sed -i "s|CONTEXT_PATH|$MYPATH|g" /usr/local/tomcat/conf/server.xml
+
+export PORTDB_JNDI="java:comp/env/jdbc/portDataSource"
+export SERVDB_JNDI="java:comp/env/jdbc/servDataSource"
+
+#start tomcat
+exec /usr/local/tomcat/bin/catalina.sh run
