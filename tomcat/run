@@ -8,10 +8,14 @@ source "${ENTANDO_COMMON_PATH}/translate-jboss-variables.sh"
 #set var to use custom context
 if [ "$ENTANDO_WEB_CONTEXT" == "/" ]; then
   MYCONTEXT="ROOT"
-  MYPATH=""
+  TOMCAT_BASE="<Context docBase=\"/entando-data/resources\" path=\"/cmsresources\" />"
 else
   MYCONTEXT="$ENTANDO_WEB_CONTEXT"
-  MYPATH="$ENTANDO_WEB_CONTEXT"
+  TOMCAT_BASE="<Context docBase=\"/entando-data/resources\" path=\"$ENTANDO_WEB_CONTEXT/cmsresources\" />"
+fi
+
+if [ "$CDS_ENABLED" == "true" ] || [ "$CDS_ENABLED" = true ]; then
+  TOMCAT_BASE=""
 fi
 
 #rename war to change context
@@ -19,7 +23,7 @@ mv /usr/local/tomcat/webapps/entando-de-app.war "/usr/local/tomcat/webapps/$MYCO
 
 
 #replace for custom context
-sed -i "s|CONTEXT_PATH|$MYPATH|g" /usr/local/tomcat/conf/server.xml
+sed -i "s|CONTEX_BASE_CSMRESOURCES|$TOMCAT_BASE|g" /usr/local/tomcat/conf/server.xml
 
 export PORTDB_JNDI="java:comp/env/jdbc/portDataSource"
 export SERVDB_JNDI="java:comp/env/jdbc/servDataSource"
