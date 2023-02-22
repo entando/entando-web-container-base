@@ -2,7 +2,13 @@
 
 source "${ENTANDO_COMMON_PATH}/translate-jboss-variables.sh"
 unset ENV_FILES #because we already have their values in the environment. The EAP image doesn't merge ENV_FILES with the environment, but creates duplicate datasources
-sed  -i 's@##RESOURCEROOTURL##@'"$RESOURCEROOTURL"'@' /opt/eap/standalone/configuration/standalone-openshift.xml
+
+LOCATION_CMS_CONTENT="<location name=\"${RESOURCEROOTURL}\" handler=\"cmscontent\"/>"
+if [ "$CDS_ENABLED" == "true" ] || [ "$CDS_ENABLED" = true ]; then
+  LOCATION_CMS_CONTENT=""
+fi
+sed  -i 's@##LOCATION_CMS_CONTENT##@'"$LOCATION_CMS_CONTENT"'@' /opt/eap/standalone/configuration/standalone-openshift.xml
+
 "${ENTANDO_COMMON_PATH}/prepare-data.sh"
 
 if [ "$ENTANDO_WEB_CONTEXT" == "/" ]; then

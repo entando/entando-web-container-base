@@ -16,11 +16,6 @@ fi
 
 if [ "$CDS_ENABLED" == "true" ] || [ "$CDS_ENABLED" = true ]; then
   TOMCAT_BASE=""
-  if [[ "$ENTANDO_WEB_CONTEXT" = "/" ]] ; then
-    export RESOURCEROOTURL="/resources/"
-  else
-    export RESOURCEROOTURL="${ENTANDO_WEB_CONTEXT}/resources/"
-  fi
 fi
 
 #rename war to change context
@@ -28,7 +23,7 @@ mv /usr/local/tomcat/webapps/entando-de-app.war "/usr/local/tomcat/webapps/$MYCO
 
 
 #replace for custom context
-sed -i "s|CONTEX_BASE_CSMRESOURCES|$TOMCAT_BASE|g" /usr/local/tomcat/conf/server.xml
+sed -i "s|CONTEXT_BASE_CSMRESOURCES|$TOMCAT_BASE|g" /usr/local/tomcat/conf/server.xml
 
 export PORTDB_JNDI="java:comp/env/jdbc/portDataSource"
 export SERVDB_JNDI="java:comp/env/jdbc/servDataSource"
