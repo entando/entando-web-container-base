@@ -16,6 +16,11 @@ fi
 
 if [ "$CDS_ENABLED" == "true" ] || [ "$CDS_ENABLED" = true ]; then
   TOMCAT_BASE=""
+  if [[ "$ENTANDO_WEB_CONTEXT" = "/" ]] ; then
+    export RESOURCEROOTURL="/resources/"
+  else
+    export RESOURCEROOTURL="${ENTANDO_WEB_CONTEXT}/resources/"
+  fi
 fi
 
 #rename war to change context
