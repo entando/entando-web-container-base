@@ -3,15 +3,14 @@
 . .ent/enp-prereq.sh
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  docker login \
+  --username "$ENTANDO_RHT_DOCKER_USERNAME" \
+  --password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" "$ENTANDO_RHT_DOCKER_REGISTRY"
+
 just-build() {
   local build="$1"
   IFS=',' read -r _dockerFile _dockerImageAddress <<<"${build//=>/,}"
-  
-  docker login \
-  --username "$ENTANDO_RHT_DOCKER_USERNAME" \
-  --password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" \
-  "$ENTANDO_RHT_DOCKER_REGISTRY"
-  
   docker build -t "$ENTANDO_OPT_DOCKER_ORG/$_dockerImageAddress:$ENTANDO_PRJ_VERSION" -f "$_dockerFile" .
 }
 
