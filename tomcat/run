@@ -14,7 +14,7 @@ else
   TOMCAT_BASE="<Context docBase=\"/entando-data/resources\" path=\"$ENTANDO_WEB_CONTEXT/cmsresources\" />"
 fi
 
-if [ "$CDS_ENABLED" == "true" ] || [ "$CDS_ENABLED" = true ]; then
+if [ "$CDS_ENABLED" == "true" ]; then
   TOMCAT_BASE=""
 fi
 
