@@ -3,10 +3,14 @@
 . .ent/enp-prereq.sh
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+printf "%s\n" "Starting the login process here"
 
-docker login \
---username "$ENTANDO_RHT_DOCKER_USERNAME" \
+docker login --username "$ENTANDO_RHT_DOCKER_USERNAME" \
 --password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" "$ENTANDO_RHT_DOCKER_REGISTRY"
+
+printf "%s\n" "Ending the login process here"
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 just-build() {
   local build="$1"
