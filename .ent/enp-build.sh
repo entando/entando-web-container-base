@@ -3,12 +3,12 @@
 . .ent/enp-prereq.sh
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "Starting the login process here"
+_log_i "Starting the login process here"
 
 docker login --username "$ENTANDO_RHT_DOCKER_USERNAME" \
 --password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" "$ENTANDO_RHT_DOCKER_REGISTRY"
 
-echo "Ending the login process here"
+_log_i "Ending the login process here"
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
