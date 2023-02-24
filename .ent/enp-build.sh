@@ -4,9 +4,11 @@
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "Starting the login process here"
+echo "Registry $ENTANDO_RHT_DOCKER_REGISTRY username $ENTANDO_RHT_DOCKER_USERNAME"
 
-docker login --username "$ENTANDO_RHT_DOCKER_USERNAME" \
---password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" "$ENTANDO_RHT_DOCKER_REGISTRY"
+docker login "$ENTANDO_RHT_DOCKER_REGISTRY" \
+  --username "$ENTANDO_RHT_DOCKER_USERNAME" \
+  --password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" 
 
 echo "Ending the login process here"
 
