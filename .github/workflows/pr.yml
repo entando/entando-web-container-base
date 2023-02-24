@@ -28,7 +28,7 @@ jobs:
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # PREPARE
-  
+
   prepare:
     runs-on: ubuntu-latest
     outputs:
@@ -54,13 +54,16 @@ jobs:
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # FULL-BUILD
-  
+
   full-build:
     needs: [ 'prepare' ]
     runs-on: ubuntu-latest
     env:
       ENTANDO_BOT_TOKEN: "${{ secrets.ENTANDO_BOT_TOKEN }}"
       ENTANDO_OPT_OKD_LOGIN_TOKEN: "${{ secrets.ENTANDO_OPT_OKD_LOGIN_TOKEN }}"
+      ENTANDO_RHT_DOCKER_USERNAME: "${{ secrets.ENTANDO_RHT_DOCKER_USERNAME }}"
+      ENTANDO_RHT_DOCKER_PASSWORD: "${{ secrets.ENTANDO_RHT_DOCKER_PASSWORD }}"
+      ENTANDO_RHT_DOCKER_REGISTRY: "${{ secrets.ENTANDO_RHT_DOCKER_REGISTRY }}"
 
     steps:
       #~ CHECKOUT
@@ -100,7 +103,7 @@ jobs:
       fail-fast: false
       matrix:
         mtx-step: ${{fromJson(needs.prepare.outputs.SCAN_MATRIX)}}
-      
+
     steps:
       #~ CHECKOUT
       - name: "CHECKOUT"

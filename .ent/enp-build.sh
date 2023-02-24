@@ -3,6 +3,15 @@
 . .ent/enp-prereq.sh
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_log_i "Starting the login process here"
+
+docker login --username "$ENTANDO_RHT_DOCKER_USERNAME" \
+--password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" "$ENTANDO_RHT_DOCKER_REGISTRY"
+
+_log_i "Ending the login process here"
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 just-build() {
   local build="$1"
   IFS=',' read -r _dockerFile _dockerImageAddress <<<"${build//=>/,}"
@@ -18,5 +27,5 @@ while IFS= read -r build; do
   just-build "$build"
 done <<< "${ENTANDO_OPT_DOCKER_BUILDS//,/$'\n'}"
 
-
+docker logout
 
