@@ -547,7 +547,7 @@
                         max-post-size="${env.JBOSS_MAX_POST_SIZE}"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
-                    <location name="##RESOURCEROOTURL##" handler="cmscontent"/>
+                    ##LOCATION_CMS_CONTENT##
                     <http-invoker security-realm="ApplicationRealm"/>
                     <filter-ref name="x-frame-options"/>
                     <filter-ref name="x-xss-protection"/>
