@@ -4,6 +4,7 @@
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "Starting the login process here"
+echo "$ENTANDO_RHT_DOCKER_USERNAME"
 
 docker login --username "$ENTANDO_RHT_DOCKER_USERNAME" \
 --password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" "$ENTANDO_RHT_DOCKER_REGISTRY"
