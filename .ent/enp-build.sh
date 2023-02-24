@@ -5,8 +5,8 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "Starting the login process here"
 
-docker login --username "${{ secrets.ENTANDO_RHT_DOCKER_USERNAME }}" \
---password-stdin <<< "${{ secrets.ENTANDO_RHT_DOCKER_PASSWORD }}" "${{ secrets.ENTANDO_RHT_DOCKER_REGISTRY }}"
+docker login --username "$ENTANDO_RHT_DOCKER_USERNAME" \
+--password-stdin <<< "$ENTANDO_RHT_DOCKER_PASSWORD" "$ENTANDO_RHT_DOCKER_REGISTRY"
 
 echo "Ending the login process here"
 
