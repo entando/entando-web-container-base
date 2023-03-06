@@ -2,6 +2,14 @@
 export CATALINA_OPTS="$CATALINA_OPTS -server"
 
 ##################
+# JVM agent
+##################
+if ${AGENT_ENABLED:-false}; then
+  export CATALINA_OPTS="$CATALINA_OPTS ${AGENT_OPTS}"
+fi
+
+
+##################
 # JVM configs
 ##################
 export CATALINA_OPTS="$CATALINA_OPTS -XshowSettings:vm"
