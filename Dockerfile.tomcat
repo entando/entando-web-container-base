@@ -96,7 +96,8 @@ COPY --chown=185:0 tomcat/libs/ /usr/local/tomcat/lib/
 COPY --chown=185:0 tomcat/conf/server.xml /usr/local/tomcat/conf/server.xml
 COPY --chown=185:0 tomcat/conf/context.xml /usr/local/tomcat/conf/context.xml
 COPY --chown=185:0 tomcat/conf/web.xml /usr/local/tomcat/conf/web.xml
-
+# Overwrite log configuration to stdout only
+COPY --chown=185:0 tomcat/conf/logging.properties /usr/local/tomcat/conf/logging.properties
 
 #######################################    
 # Create dirs and add run permission
