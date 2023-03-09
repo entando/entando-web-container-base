@@ -61,9 +61,7 @@ export LOG_LEVEL=${LOG_LEVEL:-INFO}
 echo "LOG_LEVEL: $LOG_LEVEL"
 export ROOT_LOG_LEVEL=${ROOT_LOG_LEVEL:-WARN}
 echo "ROOT_LOG_LEVEL: $ROOT_LOG_LEVEL"
-if [[ -n "$LOG_CONFIG_FILE_PATH" ]]; then
-  export CATALINA_OPTS="$CATALINA_OPTS -Dlogback.configurationFile='${LOG_CONFIG_FILE_PATH}'"
-fi
+export CATALINA_OPTS="$CATALINA_OPTS -Dlogback.configurationFile='${LOG_CONFIG_FILE_PATH:-logback-default.xml}'"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogFilePrefix='${LOGFILEPREFIX}'"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogName='${LOGNAME}'"
 export CATALINA_OPTS="$CATALINA_OPTS -DlogFileRotatePattern='${LOGFILEROTATEPATTERN}'"
