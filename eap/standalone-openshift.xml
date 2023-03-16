@@ -43,6 +43,7 @@
     <system-properties>
         <property name="spring.profiles.active" value="${env.SPRING_PROFILES_ACTIVE}"/>
         <property name="logback.configurationFile" value="${env.LOG_CONFIG_FILE_PATH}"/>
+        <property name="file.upload.maxSize" value="${env.FILE_UPLOAD_MAX_SIZE}"/>
     </system-properties>
     <management>
         <security-realms>
