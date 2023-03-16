@@ -30,6 +30,15 @@ export CATALINA_OPTS="$CATALINA_OPTS -Dfile.encoding=${FILE_ENCODING:-UTF8}"
 export CATALINA_OPTS="$CATALINA_OPTS -Duser.timezone=Europe/Rome"
 export CATALINA_OPTS="$CATALINA_OPTS -DtomcatMaxThreads=${TOMCAT_MAX_THREADS:-300}"
 export CATALINA_OPTS="$CATALINA_OPTS -DtomcatMaxHttpHeaderSize=${TOMCAT_MAX_HEADER_SIZE:-65536}"
+
+if [[ -z "$TOMCAT_MAX_POST_SIZE" ]] ; then
+  TOMCAT_MAX_POST_SIZE="52428800"
+fi
+TOMCAT_SERVER_MAX_POST_SIZE=$(( "$TOMCAT_MAX_POST_SIZE" + 209715200 ))
+echo "Tomcat server post size is: ${TOMCAT_SERVER_MAX_POST_SIZE}"
+echo "Tomcat app post size is: ${TOMCAT_MAX_POST_SIZE}"
+export CATALINA_OPTS="$CATALINA_OPTS -DtomcatMaxPostSize=${TOMCAT_SERVER_MAX_POST_SIZE}"
+
 export CATALINA_OPTS="$CATALINA_OPTS -DtomcatConnectionTimeout=${TOMCAT_CONN_TIMEOUT:-5000}"
 if ${JMX_ENABLED:-false}; then
   JMX_OPTS=${JMX_OPTS:--Dcom.sun.management.jmxremote.rmi.port=9099 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=9099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=localhost}    
