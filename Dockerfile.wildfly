@@ -46,6 +46,7 @@ ENV USERID_TO_USE=185 \
     KEYCLOAK_CLIENT_ID="dummy" \
     KEYCLOAK_CLIENT_SECRET="dummy" \
     KEYCLOAK_PUBLIC_CLIENT_ID="dummy" \
+    LOG_CONFIG_FILE_PATH="logback-default.xml" \
     LOGFILEPREFIX="/var/log/entando/engine_" \
     LOGNAME="/var/log/entando/engine.log" \
     LOGACTIVEFILEOUTPUT="true" \
