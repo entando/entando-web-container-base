@@ -13,7 +13,7 @@ fi
 # JVM configs
 ##################
 export CATALINA_OPTS="$CATALINA_OPTS -XshowSettings:vm"
-export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxRAMPercentage=${MAX_RAM_PERCENTAGE:-90.0}"
+export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxRAMPercentage=${MAX_RAM_PERCENTAGE:-30.0}"
 export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxMetaspaceSize=${MAX_METASPACE:-512m}"
 
 GC_OPTS="${GC_OPTS:--XX:+UseG1GC -XX:MaxGCPauseMillis=500 -XX:+DisableExplicitGC}"
