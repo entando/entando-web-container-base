@@ -75,6 +75,7 @@
                socket.appReadBufSize="8192"
                socket.appWriteBufSize="8192"
                maxHttpHeaderSize="${tomcatMaxHttpHeaderSize}"
+               maxPostSize="${tomcatMaxPostSize}"
                socket.bufferPool="1000"
                compression="off"
                connectionTimeout="${tomcatConnectionTimeout}"
