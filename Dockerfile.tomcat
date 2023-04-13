@@ -41,7 +41,7 @@ ENV USERID_TO_USE=185 \
     LOGFILEROTATEPATTERN="/var/log/entando/engine_%i.log.gz" \
     APPBUILDERINTEGRATIONENABLED="true" \
     APPBUILDERBASEURL="/app-builder/" \
-    INDEXDISKROOTFOLDER="/tmp/entando-indices" \
+    INDEXDISKROOTFOLDER="/entando-data/entando-indices" \
     LC_ALL="en_US.UTF-8" \
     SPRING_PROFILES_ACTIVE="default"   
 
